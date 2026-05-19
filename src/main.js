@@ -76,6 +76,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   });
 
+  // Copy email to clipboard
+  const copyBtn = document.getElementById('copy-email-btn');
+  copyBtn?.addEventListener('click', () => {
+    const email = copyBtn.dataset.email;
+    if (email) {
+      navigator.clipboard.writeText(email).then(() => {
+        const icon = copyBtn.querySelector('i');
+        const tooltip = copyBtn.querySelector('.tooltip');
+        
+        copyBtn.classList.add('copied');
+        if (icon) icon.className = 'ph ph-check';
+        if (tooltip) tooltip.textContent = '¡Copiado!';
+        
+        setTimeout(() => {
+          copyBtn.classList.remove('copied');
+          if (icon) icon.className = 'ph ph-copy';
+          if (tooltip) tooltip.textContent = 'Copiar';
+        }, 2000);
+      });
+    }
+  });
+
   // Initialize modules
   initSmoothScroll();
   initScrollReveal();

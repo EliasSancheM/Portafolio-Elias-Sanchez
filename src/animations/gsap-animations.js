@@ -18,6 +18,18 @@ export function initGSAPAnimations() {
     el.classList.remove('reveal-left', 'reveal-right');
   });
 
+  // Scroll progress bar
+  gsap.to('.scroll-progress', {
+    scaleX: 1,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: 'body',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 0.1,
+    },
+  });
+
   // Hero parallax on scroll
   gsap.to('.hero-content', {
     y: 150,

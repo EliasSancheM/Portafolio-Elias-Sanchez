@@ -103,6 +103,18 @@ input, textarea { font: inherit; }
   transition: border-color 0.3s, background 0.3s;
 }
 .navbar.scrolled { border-bottom-color: var(--border); background: rgba(10,10,15,0.9); }
+.scroll-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent-gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 1001;
+  pointer-events: none;
+}
 .nav-logo {
   font-family: var(--font-mono); font-size: 1.2rem; font-weight: 700;
   letter-spacing: -0.5px;
@@ -457,6 +469,60 @@ input, textarea { font: inherit; }
 .contact-label { font-size: 0.78rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; display: block; }
 .contact-value { font-size: 0.95rem; color: var(--text-1); transition: color 0.3s; display: block; }
 a.contact-value:hover { color: var(--accent-2); }
+.email-copy-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.copy-email-btn {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s var(--ease-out);
+  position: relative;
+}
+.copy-email-btn:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--accent-1);
+  color: var(--text-1);
+}
+.copy-email-btn i {
+  font-size: 0.9rem;
+}
+.copy-email-btn .tooltip {
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--text-1);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  font-weight: 500;
+  pointer-events: none;
+  opacity: 0;
+  white-space: nowrap;
+  transition: all 0.3s var(--ease-out);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+.copy-email-btn:hover .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.copy-email-btn.copied {
+  background: rgba(0, 212, 170, 0.15);
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+}
 .contact-socials { display: flex; gap: 12px; margin-top: 24px; }
 .social-link {
   width: 48px; height: 48px; border-radius: var(--radius-sm);
