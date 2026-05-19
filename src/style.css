@@ -406,7 +406,8 @@ input, textarea { font: inherit; }
 .timeline { position: relative; max-width: 780px; margin: 0 auto; }
 .timeline::before {
   content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-  width: 2px; background: var(--border);
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent-1), var(--accent-2) var(--scroll-progress, 0%), var(--border) var(--scroll-progress, 0%));
 }
 .timeline-item {
   position: relative; padding-left: 48px; padding-bottom: 48px;

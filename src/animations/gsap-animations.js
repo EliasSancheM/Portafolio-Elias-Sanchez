@@ -11,6 +11,9 @@ export function initGSAPAnimations() {
   document.querySelectorAll('.skill-category.reveal-up').forEach(el => {
     el.classList.remove('reveal-up');
   });
+  document.querySelectorAll('.project-card.reveal-up').forEach(el => {
+    el.classList.remove('reveal-up');
+  });
   document.querySelectorAll('.timeline-item').forEach(el => {
     el.classList.remove('reveal-left', 'reveal-right');
   });
@@ -60,7 +63,34 @@ export function initGSAPAnimations() {
     });
   });
 
-  // Project cards 3D tilt on hover
+  // Project cards 3D entrance animation on scroll
+  const projectGrid = document.querySelector('.projects-grid');
+  if (projectGrid) {
+    const cards = projectGrid.querySelectorAll('.project-card');
+    gsap.set(cards, { 
+      opacity: 0, 
+      y: 80, 
+      scale: 0.9, 
+      rotateX: -12, 
+      transformPerspective: 1000 
+    });
+    gsap.to(cards, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      rotateX: 0,
+      duration: 1.0,
+      ease: 'back.out(1.1)',
+      stagger: 0.15,
+      scrollTrigger: {
+        trigger: projectGrid,
+        start: 'top 85%',
+        toggleActions: 'play none none none',
+      }
+    });
+  }
+
+  // Project cards 3D tilt on hover (interactive mousemove)
   document.querySelectorAll('.project-card').forEach(card => {
     const inner = card.querySelector('.project-card-inner');
     card.addEventListener('mousemove', (e) => {
@@ -92,9 +122,27 @@ export function initGSAPAnimations() {
     });
   });
 
-  // Timeline items
-  gsap.utils.toArray('.timeline-item').forEach((item, i) => {
-    gsap.set(item, { opacity: 0, x: i % 2 === 0 ? -40 : 40 });
+  // Experience timeline vertical path progress tracking on scroll
+  const timeline = document.querySelector('.timeline');
+  if (timeline) {
+    gsap.fromTo(timeline, 
+      { '--scroll-progress': '0%' },
+      {
+        '--scroll-progress': '100%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: timeline,
+          start: 'top 70%',
+          end: 'bottom 70%',
+          scrub: true,
+        }
+      }
+    );
+  }
+
+  // Timeline items slide out gracefully from the vertical timeline line
+  gsap.utils.toArray('.timeline-item').forEach((item) => {
+    gsap.set(item, { opacity: 0, x: -30 });
     gsap.to(item, {
       x: 0,
       opacity: 1,
@@ -102,7 +150,7 @@ export function initGSAPAnimations() {
       ease: 'power3.out',
       scrollTrigger: {
         trigger: item,
-        start: 'top 88%',
+        start: 'top 85%',
         toggleActions: 'play none none none',
         onEnter: () => item.classList.add('revealed'),
       },
