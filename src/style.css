@@ -299,6 +299,9 @@ input, textarea { font: inherit; }
   font-size: 0.88rem; color: var(--text-2);
 }
 .about-detail-item i { color: var(--accent-1); font-size: 1.1rem; }
+.about-cta {
+  display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+}
 
 /* ===== SKILLS ===== */
 .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
@@ -622,6 +625,8 @@ a.contact-value:hover { color: var(--accent-2); }
   .projects-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .hero-cta { flex-direction: column; align-items: center; }
+  .about-cta { flex-direction: column; gap: 12px; }
+  .about-cta .btn { width: 100%; justify-content: center; }
   .footer-content { flex-direction: column; gap: 16px; text-align: center; }
   .section { padding: 80px 0; }
   .navbar { padding: 0 20px; }
