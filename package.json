@@ -1,0 +1,19 @@
+{
+  "name": "portafolio3d",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "serve dist -s -l $PORT"
+  },
+  "devDependencies": {
+    "gsap": "^3.12.0",
+    "three": "^0.170.0",
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "serve": "^14.2.6"
+  }
+}
