@@ -67,13 +67,43 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
     const origHTML = btn.innerHTML;
-    btn.innerHTML = '<span>¡Mensaje enviado!</span><i class="ph ph-check-circle"></i>';
+    
+    // Change to loading/sending state with a spinning notch icon
+    btn.innerHTML = '<span>Enviando...</span><i class="ph ph-circle-notch spinner"></i>';
     btn.style.pointerEvents = 'none';
-    setTimeout(() => {
-      btn.innerHTML = origHTML;
-      btn.style.pointerEvents = '';
-      form.reset();
-    }, 3000);
+    
+    // Collect form data
+    const formData = new FormData(form);
+    
+    // Formspree API Endpoint
+    fetch('https://formspree.io/f/xnjrjzwl', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        // Success state
+        btn.innerHTML = '<span>¡Mensaje enviado!</span><i class="ph ph-check-circle"></i>';
+        form.reset();
+      } else {
+        // Formspree error
+        btn.innerHTML = '<span>Error al enviar</span><i class="ph ph-warning"></i>';
+      }
+    })
+    .catch(() => {
+      // Network/Connection error
+      btn.innerHTML = '<span>Error de red</span><i class="ph ph-warning"></i>';
+    })
+    .finally(() => {
+      // Reset button back to original state after 3 seconds
+      setTimeout(() => {
+        btn.innerHTML = origHTML;
+        btn.style.pointerEvents = '';
+      }, 3000);
+    });
   });
 
   // Copy email to clipboard
