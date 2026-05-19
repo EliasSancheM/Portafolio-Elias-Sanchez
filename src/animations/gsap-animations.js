@@ -59,6 +59,11 @@ export function initGSAPAnimations() {
       const centerY = rect.height / 2;
       const rotateX = (y - centerY) / centerY * -6;
       const rotateY = (x - centerX) / centerX * 6;
+      const pctX = (x / rect.width) * 100;
+      const pctY = (y / rect.height) * 100;
+      card.style.setProperty('--mouse-x', `${pctX}%`);
+      card.style.setProperty('--mouse-y', `${pctY}%`);
+
       gsap.to(inner, {
         rotateX, rotateY,
         duration: 0.4,
