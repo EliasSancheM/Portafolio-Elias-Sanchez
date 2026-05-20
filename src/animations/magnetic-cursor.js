@@ -8,21 +8,47 @@ export function initMagneticCursor() {
 
   let cursorX = 0, cursorY = 0;
   let followerX = 0, followerY = 0;
+  let prevFollowerX = 0, prevFollowerY = 0;
 
   document.addEventListener('mousemove', (e) => {
     cursorX = e.clientX;
     cursorY = e.clientY;
   });
 
-  // Smooth follower animation
+  // Smooth follower animation with dynamic organic jelly physics
   function animate() {
-    followerX += (cursorX - followerX) * 0.12;
-    followerY += (cursorY - followerY) * 0.12;
+    // Keep track of previous frame position
+    prevFollowerX = followerX;
+    prevFollowerY = followerY;
+
+    // LERP interpolation
+    followerX += (cursorX - followerX) * 0.14;
+    followerY += (cursorY - followerY) * 0.14;
 
     cursor.style.left = cursorX + 'px';
     cursor.style.top = cursorY + 'px';
     follower.style.left = followerX + 'px';
     follower.style.top = followerY + 'px';
+
+    // Calculate movement vector components
+    const dx = followerX - prevFollowerX;
+    const dy = followerY - prevFollowerY;
+    
+    // Calculate speed
+    const speed = Math.sqrt(dx * dx + dy * dy);
+    
+    // Stretch along velocity vector, shrink on the perpendicular axis
+    // Clamp the stretch factor to prevent the cursor from looking distorted
+    const stretch = Math.min(speed * 0.08, 0.5); 
+    
+    // Angle in degrees
+    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+    if (speed > 0.1) {
+      follower.style.transform = `translate3d(-50%, -50%, 0) rotate(${angle}deg) scale(${1 + stretch}, ${1 - stretch})`;
+    } else {
+      follower.style.transform = 'translate3d(-50%, -50%, 0) scale(1, 1)';
+    }
 
     requestAnimationFrame(animate);
   }

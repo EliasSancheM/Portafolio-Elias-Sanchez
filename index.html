@@ -47,6 +47,11 @@
       <li><a href="#experience" class="nav-link" data-section="experience">Experiencia</a></li>
       <li><a href="#contact" class="nav-link" data-section="contact">Contacto</a></li>
     </ul>
+    
+    <button id="cmd-palette-btn" class="nav-cmd-btn magnetic" title="Abrir consola (Ctrl+K)">
+      <i class="ph ph-command"></i>
+      <span class="cmd-badge">Ctrl+K</span>
+    </button>
     <div class="scroll-progress"></div>
   </nav>
 
@@ -652,6 +657,31 @@
       </div>
     </div>
   </footer>
+
+  <!-- Command Palette Modal -->
+  <div id="cmd-palette" class="cmd-palette" aria-hidden="true">
+    <div class="cmd-overlay"></div>
+    <div class="cmd-dialog">
+      <div class="cmd-header">
+        <i class="ph ph-terminal-window"></i>
+        <input type="text" id="cmd-input" placeholder="Escribe un comando o busca..." autocomplete="off" spellcheck="false" />
+        <div class="cmd-header-badges">
+          <span class="cmd-key-badge">ESC</span>
+        </div>
+      </div>
+      <div class="cmd-body">
+        <div class="cmd-section-title">Comandos disponibles</div>
+        <ul class="cmd-list" id="cmd-list">
+          <!-- Dynamically populated in JavaScript -->
+        </ul>
+      </div>
+      <div class="cmd-footer">
+        <span>Navegar <kbd>↑</kbd> <kbd>↓</kbd></span>
+        <span>Seleccionar <kbd>Enter</kbd></span>
+        <span>Cerrar <kbd>Esc</kbd></span>
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="/src/main.js"></script>
 </body>

@@ -5,6 +5,9 @@ import { initGSAPAnimations } from './animations/gsap-animations.js';
 import { initTextSplit } from './animations/text-split.js';
 import { initMagneticCursor } from './animations/magnetic-cursor.js';
 import { initSmoothScroll } from './utils/smooth-scroll.js';
+import { initTextScramble } from './animations/text-scramble.js';
+import { initCommandPalette } from './utils/command-palette.js';
+
 
 // Wait for DOM
 document.addEventListener('DOMContentLoaded', () => {
@@ -137,6 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initMagneticCursor();
   initParticles();
+  initTextScramble();
+  initCommandPalette();
 
   // GSAP + text split (loaded async)
   initTextSplit();
