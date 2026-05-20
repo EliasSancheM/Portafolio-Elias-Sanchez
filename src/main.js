@@ -46,19 +46,23 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(type, 1200);
   }
 
-  // Skill bars animation
+  // Skill radial gauges animation
   const skillItems = document.querySelectorAll('.skill-item');
   const skillObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const item = entry.target;
-        const level = item.dataset.level;
+        const level = parseInt(item.dataset.level || '0', 10);
+        const circumference = 2 * Math.PI * 34; // ~213.63
+        const offset = circumference - (circumference * level / 100);
+        
         item.style.setProperty('--level', level + '%');
+        item.style.setProperty('--offset', offset);
         item.classList.add('animated');
         skillObserver.unobserve(item);
       }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.2 });
   skillItems.forEach(item => skillObserver.observe(item));
 
   // Contact form

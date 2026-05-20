@@ -122,6 +122,93 @@ export function initGSAPAnimations() {
     });
   });
 
+  // Profile picture 3D tilt & floating badges parallax
+  const profileContainer = document.querySelector('.profile-tilt');
+  if (profileContainer) {
+    const img = profileContainer.querySelector('.about-image');
+    const border = profileContainer.querySelector('.about-image-border');
+    const float1 = profileContainer.querySelector('.about-float-1');
+    const float2 = profileContainer.querySelector('.about-float-2');
+
+    profileContainer.addEventListener('mousemove', (e) => {
+      const rect = profileContainer.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      // Subtle 3D rotation based on mouse position relative to center
+      const rotateX = ((y - centerY) / centerY) * -8; // max 8deg
+      const rotateY = ((x - centerX) / centerX) * 8; // max 8deg
+
+      // Dynamic parallax translation for the floating cards (different depths)
+      const float1X = (x - centerX) * 0.15; // moves with the mouse for extra depth
+      const float1Y = (y - centerY) * 0.15;
+      const float2X = (x - centerX) * -0.1;  // moves in the opposite direction
+      const float2Y = (y - centerY) * -0.1;
+
+      gsap.to([img, border], {
+        rotateX,
+        rotateY,
+        transformPerspective: 1000,
+        duration: 0.5,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+
+      if (float1) {
+        gsap.to(float1, {
+          x: float1X,
+          y: float1Y,
+          duration: 0.5,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      }
+
+      if (float2) {
+        gsap.to(float2, {
+          x: float2X,
+          y: float2Y,
+          duration: 0.5,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      }
+    });
+
+    profileContainer.addEventListener('mouseleave', () => {
+      gsap.to([img, border], {
+        rotateX: 0,
+        rotateY: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        overwrite: 'auto'
+      });
+
+      if (float1) {
+        gsap.to(float1, {
+          x: 0,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+      }
+
+      if (float2) {
+        gsap.to(float2, {
+          x: 0,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+      }
+    });
+  }
+
+
   // Experience timeline vertical path progress tracking on scroll
   const timeline = document.querySelector('.timeline');
   if (timeline) {
