@@ -11,18 +11,18 @@ import { animate, stagger, createScope } from 'animejs';
 import Lenis from '@studio-freight/lenis';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // NOTA: no se usa prefers-reduced-motion como interruptor global.
+  // Windows 11 lo activa silenciosamente (ahorro de batería / "Efectos de
+  // animación" desactivado) y dejaba la página sin ningún efecto.
 
   // ── Loader ─────────────────────────────────────────────────
   initLoader();
 
   // ── Lenis ultra-smooth scroll ──────────────────────────────
-  if (!reducedMotion) {
-    const lenis = new Lenis({ duration: 1.3, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-    window.lenis = lenis;
-  }
+  const lenis = new Lenis({ duration: 1.3, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+  function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+  window.lenis = lenis;
 
   // ── Mobile nav toggle ──────────────────────────────────────
   const toggle = document.getElementById('nav-toggle');
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Typewriter ──────────────────────────────────────────────
   const typewriterEl = document.querySelector('.typewriter');
-  if (typewriterEl && !reducedMotion) {
+  if (typewriterEl) {
     const text = typewriterEl.textContent;
     typewriterEl.textContent = '';
     let i = 0;
@@ -57,28 +57,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ── Hero stats counter animation ───────────────────────────
-  if (!reducedMotion) {
-    function countUp(el, target, duration) {
-      const start = performance.now();
-      function tick(now) {
-        const p = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - p, 4);
-        el.textContent = Math.round(eased * target);
-        if (p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
+  function countUp(el, target, duration) {
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 4);
+      el.textContent = Math.round(eased * target);
+      if (p < 1) requestAnimationFrame(tick);
     }
-    const statNumbers = document.querySelectorAll('.stat-number');
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        countUp(el, parseInt(el.dataset.target || '0', 10), 1800);
-        statsObserver.unobserve(el);
-      });
-    }, { threshold: 0.5 });
-    statNumbers.forEach(el => statsObserver.observe(el));
+    requestAnimationFrame(tick);
   }
+  const statNumbers = document.querySelectorAll('.stat-number');
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      countUp(el, parseInt(el.dataset.target || '0', 10), 1800);
+      statsObserver.unobserve(el);
+    });
+  }, { threshold: 0.2 });
+  statNumbers.forEach(el => statsObserver.observe(el));
 
   // ── Skill power bar animation ──────────────────────────────
   const skillItems = document.querySelectorAll('.skill-item[data-level]');
@@ -89,14 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const level = parseInt(item.dataset.level || '0', 10);
       const fill = item.querySelector('.skill-bar-fill');
       if (fill) {
-        if (reducedMotion) {
+        setTimeout(() => {
           fill.style.width = level + '%';
-        } else {
-          setTimeout(() => {
-            fill.style.width = level + '%';
-            item.classList.add('skill-bar-animated');
-          }, 100);
-        }
+          item.classList.add('skill-bar-animated');
+        }, 100);
       }
       skillObserver.unobserve(item);
     });
@@ -147,35 +141,33 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initCommandPalette();
 
-  // ── Motion-rich modules (skip for prefers-reduced-motion) ──
-  if (!reducedMotion) {
-    initMagneticCursor();
-    initTextScramble();
-    initTextSplit();
-    initGSAPAnimations();
+  // ── Motion-rich modules ─────────────────────────────────────
+  initMagneticCursor();
+  initTextScramble();
+  initTextSplit();
+  initGSAPAnimations();
 
-    // Sakura petals
-    import('./effects/sakura.js').then(({ initSakura }) => initSakura());
+  // Sakura petals
+  import('./effects/sakura.js').then(({ initSakura }) => initSakura());
 
-    // Vanilla Tilt on cards
-    import('./effects/tilt.js').then(({ initTilt }) => initTilt());
+  // Vanilla Tilt on cards
+  import('./effects/tilt.js').then(({ initTilt }) => initTilt());
 
-    // Three.js particles (heaviest — loads last)
-    import('./three/particles.js').then(({ initParticles }) => initParticles());
+  // Three.js particles (heaviest — loads last)
+  import('./three/particles.js').then(({ initParticles }) => initParticles());
 
-    // anime.js section reveals with stagger
-    const sectionRevealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const items = entry.target.querySelectorAll('.skill-item, .project-card, .timeline-item, .contact-item');
-        if (items.length) {
-          animate(items, { opacity: [0, 1], translateY: [30, 0],
-            delay: stagger(80), duration: 700, ease: 'easeOutExpo' });
-        }
-        sectionRevealObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.1 });
+  // anime.js section reveals with stagger
+  const sectionRevealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const items = entry.target.querySelectorAll('.skill-item, .project-card, .timeline-item, .contact-item');
+      if (items.length) {
+        animate(items, { opacity: [0, 1], translateY: [30, 0],
+          delay: stagger(80), duration: 700, ease: 'easeOutExpo' });
+      }
+      sectionRevealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.1 });
 
-    document.querySelectorAll('.section').forEach(s => sectionRevealObserver.observe(s));
-  }
+  document.querySelectorAll('.section').forEach(s => sectionRevealObserver.observe(s));
 });

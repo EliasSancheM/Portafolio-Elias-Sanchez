@@ -1192,30 +1192,9 @@ body.theme-cyber .timeline::before {
 }
 
 
-/* ===== REDUCED MOTION (accesibilidad) ===== */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  html { scroll-behavior: auto; }
-
-  /* Restaurar el cursor nativo: el cursor custom animado se desactiva en JS */
-  body { cursor: auto; }
-  a, button, .nav-link, [role="button"] { cursor: pointer; }
-  input, textarea { cursor: text; }
-  .custom-cursor, .cursor-follower { display: none; }
-
-  /* El fondo de partículas no se carga en JS; ocultar el canvas por si acaso */
-  .bg-canvas { display: none; }
-
-  /* Mostrar todo el contenido de inmediato, sin esperar animaciones de scroll */
-  .reveal-up, .reveal-left, .reveal-right {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
+/* NOTA: se eliminó el bloque global de prefers-reduced-motion.
+   Windows 11 reporta "reduce" cuando los Efectos de animación del sistema
+   están desactivados (muy común), y dejaba el portafolio sin ningún efecto. */
 
 /* ============================================================
    ANIME LOADER
@@ -1585,13 +1564,3 @@ body.theme-cyber .timeline::before {
   .loader-logo { font-size: 2rem; }
 }
 
-/* ============================================================
-   PREFERS-REDUCED-MOTION
-   ============================================================ */
-@media (prefers-reduced-motion: reduce) {
-  .hero-aura, .hero-ring, .hero-speed-lines, .hero-kana,
-  .hero-name-glow, .btn-glow, .badge-pulse, .loader-logo,
-  .about-image-border { animation: none !important; }
-  .skill-bar-fill { transition: none !important; }
-  .sakura-canvas { display: none; }
-}
