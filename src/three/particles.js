@@ -20,7 +20,6 @@ export function initParticles() {
   const count = 2000;
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
-  const sizes = new Float32Array(count);
 
   // Pre-calculate 5 morph targets (Sphere, Helix/DNA, Saturn Ring, Wave Grid, Vortex)
   const shapes = [];
@@ -100,14 +99,11 @@ export function initParticles() {
     colors[i3] = mixedColor.r;
     colors[i3 + 1] = mixedColor.g;
     colors[i3 + 2] = mixedColor.b;
-
-    sizes[i] = Math.random() * 3 + 1;
   }
 
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(count * 3), 3));
   geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-  geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
   // Procedural soft glowing circle texture (same as original, provides soft bokeh style)
   function createCircleTexture() {

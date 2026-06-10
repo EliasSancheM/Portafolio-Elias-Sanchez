@@ -339,100 +339,60 @@ input, textarea { font: inherit; }
 .skill-icon-wrapper i { font-size: 1.3rem; color: #fff; }
 .skill-category h3 { font-size: 1.15rem; font-weight: 700; }
 .skill-items {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .skill-item {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  padding: 10px;
+  gap: 14px;
+  padding: 12px 16px;
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.04);
   transition: all 0.4s var(--ease-out);
-  position: relative;
-  overflow: hidden;
 }
 .skill-item:hover {
-  transform: translateY(-4px) scale(1.03);
+  transform: translateX(4px);
   border-color: var(--brand-color);
   background: rgba(255, 255, 255, 0.04);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3),
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3),
               0 0 12px var(--brand-color);
 }
-.skill-radial {
-  position: relative;
-  width: 62px;
-  height: 62px;
+.skill-dot {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--brand-color);
+  box-shadow: 0 0 8px var(--brand-color);
+  transition: transform 0.3s var(--ease-out);
+}
+.skill-item:hover .skill-dot { transform: scale(1.4); }
+.skill-meta {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-}
-.radial-svg {
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-}
-.radial-bg {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.05);
-  stroke-width: 5.5;
-}
-.radial-progress {
-  fill: none;
-  stroke: var(--brand-color);
-  stroke-width: 5.5;
-  stroke-linecap: round;
-  stroke-dasharray: 214;
-  stroke-dashoffset: 214;
-  transition: stroke-dashoffset 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-}
-.skill-item.animated .radial-progress {
-  stroke-dashoffset: var(--offset);
-}
-.skill-percent {
-  position: absolute;
-  font-size: 0.72rem;
-  font-weight: 700;
-  font-family: var(--font-mono);
-  color: #fff;
-  opacity: 0.65;
-  transition: opacity 0.3s, transform 0.3s, color 0.3s;
-}
-.skill-item:hover .skill-percent {
-  opacity: 1;
-  color: #fff;
-  transform: scale(1.05);
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 .skill-name {
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.85);
   transition: color 0.3s, text-shadow 0.3s;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
 }
 .skill-item:hover .skill-name {
   color: #fff;
   text-shadow: 0 0 8px var(--brand-color);
 }
-
-@media (max-width: 350px) {
-  .skill-items {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
+.skill-exp {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: rgba(255, 255, 255, 0.45);
+  transition: color 0.3s;
 }
+.skill-item:hover .skill-exp { color: rgba(255, 255, 255, 0.7); }
 
 
 /* ===== PROJECTS ===== */
@@ -1192,7 +1152,7 @@ body.theme-cyber .btn-primary {
 body.theme-cyber .btn-primary:hover {
   box-shadow: 0 8px 32px rgba(0, 255, 102, 0.4);
 }
-body.theme-cyber .skill-radial {
+body.theme-cyber .skill-dot {
   filter: drop-shadow(0 0 5px var(--accent-1));
 }
 body.theme-cyber .project-card-inner {
@@ -1220,3 +1180,28 @@ body.theme-cyber .timeline::before {
   background: linear-gradient(to bottom, var(--accent-1), var(--accent-2) var(--scroll-progress, 0%), var(--border) var(--scroll-progress, 0%));
 }
 
+
+/* ===== REDUCED MOTION (accesibilidad) ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+
+  /* Restaurar el cursor nativo: el cursor custom animado se desactiva en JS */
+  body { cursor: auto; }
+  a, button, .nav-link, [role="button"] { cursor: pointer; }
+  input, textarea { cursor: text; }
+  .custom-cursor, .cursor-follower { display: none; }
+
+  /* El fondo de partículas no se carga en JS; ocultar el canvas por si acaso */
+  .bg-canvas { display: none; }
+
+  /* Mostrar todo el contenido de inmediato, sin esperar animaciones de scroll */
+  .reveal-up, .reveal-left, .reveal-right {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

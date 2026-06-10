@@ -154,6 +154,7 @@ export function initCommandPalette() {
 
   input.addEventListener('keydown', (e) => {
     if (!palette.classList.contains('open')) return;
+    if (filteredCommands.length === 0) return; // evita módulo por cero con 0 resultados
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();

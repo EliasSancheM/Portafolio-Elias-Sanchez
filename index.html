@@ -7,21 +7,46 @@
   <meta name="description" content="Portafolio de Elias Sanchez Mendoza — Ingeniero en Informática con +3 años de experiencia en desarrollo Full Stack. Especializado en VueJS, Node.js, y soluciones web modernas." />
   <meta name="keywords" content="Elias Sanchez Mendoza, Full Stack Developer, Ingeniero Informática, VueJS, Node.js, portafolio" />
   <meta name="author" content="Elias Sanchez Mendoza" />
-  
+
+  <!-- TODO: reemplaza TU-DOMINIO-RAILWAY por tu dominio real de Railway (ej: portafolio3d-production.up.railway.app) -->
+  <link rel="canonical" href="https://TU-DOMINIO-RAILWAY.up.railway.app/" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
   <!-- Open Graph -->
   <meta property="og:title" content="Elias Sanchez Mendoza — Full Stack Developer" />
   <meta property="og:description" content="Ingeniero en Informática con +3 años creando soluciones web modernas y eficientes." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://TU-DOMINIO-RAILWAY.up.railway.app/" />
+  <meta property="og:image" content="https://TU-DOMINIO-RAILWAY.up.railway.app/assets/profile.jpg" />
+  <meta property="og:locale" content="es_CL" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Elias Sanchez Mendoza — Full Stack Developer" />
+  <meta name="twitter:description" content="Ingeniero en Informática con +3 años creando soluciones web modernas y eficientes." />
+  <meta name="twitter:image" content="https://TU-DOMINIO-RAILWAY.up.railway.app/assets/profile.jpg" />
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   
-  <!-- Phosphor Icons -->
-  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
-  
+  <!-- Phosphor Icons (defer: no bloquea el render inicial) -->
+  <script defer src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+
   <link rel="stylesheet" href="/src/style.css" />
+
+  <!-- Si el JS falla o está desactivado, mostrar todo el contenido igual -->
+  <noscript>
+    <style>
+      .reveal-up, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
+      .custom-cursor, .cursor-follower, .bg-canvas { display: none; }
+      body { cursor: auto; }
+      a, button { cursor: pointer; }
+    </style>
+  </noscript>
 </head>
 <body>
   <!-- Custom Cursor -->
@@ -184,65 +209,47 @@
               <h3>Frontend</h3>
             </div>
             <div class="skill-items">
-              <div class="skill-item" data-level="95" style="--brand-color: #e34c26;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">95%</span>
+              <div class="skill-item" style="--brand-color: #e34c26;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">HTML5</span>
+                  <span class="skill-exp">Avanzado · uso diario</span>
                 </div>
-                <span class="skill-name">HTML5</span>
               </div>
-              <div class="skill-item" data-level="90" style="--brand-color: #2965f1;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">90%</span>
+              <div class="skill-item" style="--brand-color: #2965f1;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">CSS3 / Bootstrap</span>
+                  <span class="skill-exp">Avanzado · uso diario</span>
                 </div>
-                <span class="skill-name">CSS3 / Bootstrap</span>
               </div>
-              <div class="skill-item" data-level="85" style="--brand-color: #f7df1e;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">85%</span>
+              <div class="skill-item" style="--brand-color: #f7df1e;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">JS / jQuery</span>
+                  <span class="skill-exp">Avanzado · base de cada proyecto</span>
                 </div>
-                <span class="skill-name">JS / jQuery</span>
               </div>
-              <div class="skill-item" data-level="88" style="--brand-color: #4fc08d;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">88%</span>
+              <div class="skill-item" style="--brand-color: #4fc08d;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">VueJS</span>
+                  <span class="skill-exp">Avanzado · proyectos en producción</span>
                 </div>
-                <span class="skill-name">VueJS</span>
               </div>
-              <div class="skill-item" data-level="70" style="--brand-color: #dd0031;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">70%</span>
+              <div class="skill-item" style="--brand-color: #dd0031;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">AngularJS</span>
+                  <span class="skill-exp">Intermedio · proyectos puntuales</span>
                 </div>
-                <span class="skill-name">AngularJS</span>
               </div>
-              <div class="skill-item" data-level="80" style="--brand-color: #00d4aa;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">80%</span>
+              <div class="skill-item" style="--brand-color: #00d4aa;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">UX/UI · Responsive</span>
+                  <span class="skill-exp">Presente en cada entrega</span>
                 </div>
-                <span class="skill-name">UX/UI · Responsive</span>
               </div>
             </div>
           </div>
@@ -256,55 +263,40 @@
               <h3>Backend</h3>
             </div>
             <div class="skill-items">
-              <div class="skill-item" data-level="85" style="--brand-color: #339933;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">85%</span>
+              <div class="skill-item" style="--brand-color: #339933;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">Node.js / Express</span>
+                  <span class="skill-exp">Avanzado · APIs y lógica de negocio</span>
                 </div>
-                <span class="skill-name">Node.js / Express</span>
               </div>
-              <div class="skill-item" data-level="75" style="--brand-color: #777bb4;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">75%</span>
+              <div class="skill-item" style="--brand-color: #777bb4;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">PHP</span>
+                  <span class="skill-exp">Intermedio · proyectos para PYMEs</span>
                 </div>
-                <span class="skill-name">PHP</span>
               </div>
-              <div class="skill-item" data-level="80" style="--brand-color: #00758f;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">80%</span>
+              <div class="skill-item" style="--brand-color: #00758f;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">MySQL</span>
+                  <span class="skill-exp">Intermedio · modelado y consultas</span>
                 </div>
-                <span class="skill-name">MySQL</span>
               </div>
-              <div class="skill-item" data-level="75" style="--brand-color: #47a248;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">75%</span>
+              <div class="skill-item" style="--brand-color: #47a248;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">MongoDB</span>
+                  <span class="skill-exp">Intermedio · apps con Node.js</span>
                 </div>
-                <span class="skill-name">MongoDB</span>
               </div>
-              <div class="skill-item" data-level="80" style="--brand-color: #ff6c37;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">80%</span>
+              <div class="skill-item" style="--brand-color: #ff6c37;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">REST APIs</span>
+                  <span class="skill-exp">Diseño e integración</span>
                 </div>
-                <span class="skill-name">REST APIs</span>
               </div>
             </div>
           </div>
@@ -318,55 +310,40 @@
               <h3>Herramientas</h3>
             </div>
             <div class="skill-items">
-              <div class="skill-item" data-level="85" style="--brand-color: #f05032;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">85%</span>
+              <div class="skill-item" style="--brand-color: #f05032;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">Git / GitHub</span>
+                  <span class="skill-exp">Avanzado · uso diario</span>
                 </div>
-                <span class="skill-name">Git / GitHub</span>
               </div>
-              <div class="skill-item" data-level="60" style="--brand-color: #2496ed;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">60%</span>
+              <div class="skill-item" style="--brand-color: #2496ed;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">Docker</span>
+                  <span class="skill-exp">Básico · entornos de desarrollo</span>
                 </div>
-                <span class="skill-name">Docker</span>
               </div>
-              <div class="skill-item" data-level="90" style="--brand-color: #007acc;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">90%</span>
+              <div class="skill-item" style="--brand-color: #007acc;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">VS Code</span>
+                  <span class="skill-exp">Editor principal · uso diario</span>
                 </div>
-                <span class="skill-name">VS Code</span>
               </div>
-              <div class="skill-item" data-level="85" style="--brand-color: #ff6c37;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">85%</span>
+              <div class="skill-item" style="--brand-color: #ff6c37;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">Postman</span>
+                  <span class="skill-exp">Testing y documentación de APIs</span>
                 </div>
-                <span class="skill-name">Postman</span>
               </div>
-              <div class="skill-item" data-level="80" style="--brand-color: #ab63ff;">
-                <div class="skill-radial">
-                  <svg class="radial-svg" viewBox="0 0 80 80">
-                    <circle class="radial-bg" cx="40" cy="40" r="34"></circle>
-                    <circle class="radial-progress" cx="40" cy="40" r="34"></circle>
-                  </svg>
-                  <span class="skill-percent">80%</span>
+              <div class="skill-item" style="--brand-color: #ab63ff;">
+                <span class="skill-dot"></span>
+                <div class="skill-meta">
+                  <span class="skill-name">AI Tools</span>
+                  <span class="skill-exp">Integradas al flujo de trabajo</span>
                 </div>
-                <span class="skill-name">AI Tools</span>
               </div>
             </div>
           </div>
@@ -390,11 +367,6 @@
                   <div class="art-bar bar-1"></div>
                   <div class="art-bar bar-2"></div>
                   <div class="art-bar bar-3"></div>
-                </div>
-                <div class="project-overlay">
-                  <a href="#" class="project-link magnetic" aria-label="Ver proyecto">
-                    <i class="ph ph-arrow-up-right"></i>
-                  </a>
                 </div>
               </div>
               <div class="project-info">
@@ -427,11 +399,6 @@
                     <div class="cal-day"></div>
                   </div>
                 </div>
-                <div class="project-overlay">
-                  <a href="#" class="project-link magnetic" aria-label="Ver proyecto">
-                    <i class="ph ph-arrow-up-right"></i>
-                  </a>
-                </div>
               </div>
               <div class="project-info">
                 <span class="project-number">02</span>
@@ -458,11 +425,6 @@
                     <div class="hero-circle"></div>
                   </div>
                 </div>
-                <div class="project-overlay">
-                  <a href="#" class="project-link magnetic" aria-label="Ver proyecto">
-                    <i class="ph ph-arrow-up-right"></i>
-                  </a>
-                </div>
               </div>
               <div class="project-info">
                 <span class="project-number">03</span>
@@ -486,11 +448,6 @@
                   <div class="orb-core"></div>
                   <div class="orb-ring ring-1"></div>
                   <div class="orb-ring ring-2"></div>
-                </div>
-                <div class="project-overlay">
-                  <a href="#" class="project-link magnetic" aria-label="Ver proyecto">
-                    <i class="ph ph-arrow-up-right"></i>
-                  </a>
                 </div>
               </div>
               <div class="project-info">
@@ -524,7 +481,7 @@
             </div>
             <div class="timeline-content">
               <div class="timeline-header">
-                <span class="timeline-date">2020 — Actualidad</span>
+                <span class="timeline-date">2023 — Actualidad</span>
                 <span class="timeline-badge">Remoto</span>
               </div>
               <h3 class="timeline-title">Desarrollador Full Stack Freelance</h3>

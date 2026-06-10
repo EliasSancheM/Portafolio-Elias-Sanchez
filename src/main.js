@@ -1,5 +1,4 @@
 import './style.css';
-import { initParticles } from './three/particles.js';
 import { initScrollReveal } from './animations/scroll-reveal.js';
 import { initGSAPAnimations } from './animations/gsap-animations.js';
 import { initTextSplit } from './animations/text-split.js';
@@ -11,6 +10,8 @@ import { initCommandPalette } from './utils/command-palette.js';
 
 // Wait for DOM
 document.addEventListener('DOMContentLoaded', () => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // Mobile nav toggle
   const toggle = document.getElementById('nav-toggle');
   const menu = document.getElementById('nav-menu');
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Typewriter effect
   const typewriterEl = document.querySelector('.typewriter');
-  if (typewriterEl) {
+  if (typewriterEl && !reducedMotion) {
     const text = typewriterEl.textContent;
     typewriterEl.textContent = '';
     let i = 0;
@@ -48,25 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     setTimeout(type, 1200);
   }
-
-  // Skill radial gauges animation
-  const skillItems = document.querySelectorAll('.skill-item');
-  const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const item = entry.target;
-        const level = parseInt(item.dataset.level || '0', 10);
-        const circumference = 2 * Math.PI * 34; // ~213.63
-        const offset = circumference - (circumference * level / 100);
-        
-        item.style.setProperty('--level', level + '%');
-        item.style.setProperty('--offset', offset);
-        item.classList.add('animated');
-        skillObserver.unobserve(item);
-      }
-    });
-  }, { threshold: 0.2 });
-  skillItems.forEach(item => skillObserver.observe(item));
 
   // Contact form
   const form = document.getElementById('contact-form');
@@ -138,12 +120,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize modules
   initSmoothScroll();
   initScrollReveal();
-  initMagneticCursor();
-  initParticles();
-  initTextScramble();
   initCommandPalette();
 
-  // GSAP + text split (loaded async)
-  initTextSplit();
-  initGSAPAnimations();
+  // Con prefers-reduced-motion activo, el CSS muestra el contenido de
+  // inmediato y aquí se omiten todos los efectos de movimiento
+  if (!reducedMotion) {
+    initMagneticCursor();
+    initTextScramble();
+
+    // Three.js es lo más pesado del bundle: se carga en un chunk aparte
+    // para no bloquear la interactividad inicial de la página
+    import('./three/particles.js').then(({ initParticles }) => initParticles());
+
+    // GSAP + text split (loaded async)
+    initTextSplit();
+    initGSAPAnimations();
+  }
 });
