@@ -31,7 +31,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
   
   <!-- Phosphor Icons (defer: no bloquea el render inicial) -->
   <script defer src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
@@ -49,12 +49,28 @@
   </noscript>
 </head>
 <body>
+
+  <!-- ===== ANIME LOADER ===== -->
+  <div id="page-loader" class="page-loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-logo"><span>&lt;</span>ESM<span>/&gt;</span></div>
+      <div class="loader-text">INICIALIZANDO...</div>
+      <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+      <div class="loader-percent">0%</div>
+    </div>
+  </div>
+
   <!-- Custom Cursor -->
   <div id="cursor" class="custom-cursor"></div>
-  <div id="cursor-follower" class="cursor-follower"></div>
+  <div id="cursor-follower" class="cursor-follower">
+    <div class="cursor-trail"></div>
+  </div>
 
   <!-- Global 3D Background Canvas -->
   <canvas id="bg-canvas" class="bg-canvas"></canvas>
+
+  <!-- Sakura Canvas (hero section overlay) -->
+  <canvas id="sakura-canvas" class="sakura-canvas"></canvas>
 
   <!-- Navigation -->
   <nav id="navbar" class="navbar">
@@ -83,28 +99,57 @@
   <main>
     <!-- ===== HERO SECTION ===== -->
     <section id="hero" class="hero">
+
+      <!-- Anime decorative elements -->
+      <div class="hero-aura" aria-hidden="true"></div>
+      <div class="hero-rings" aria-hidden="true">
+        <div class="hero-ring ring-1"></div>
+        <div class="hero-ring ring-2"></div>
+        <div class="hero-ring ring-3"></div>
+      </div>
+      <div class="hero-speed-lines" aria-hidden="true"></div>
+      <div class="hero-kana" aria-hidden="true">開発者</div>
+      <div class="hero-kana hero-kana-2" aria-hidden="true">全力</div>
+
       <div class="hero-content">
         <div class="hero-badge reveal-up">
           <span class="badge-dot"></span>
+          <span class="badge-pulse"></span>
           Disponible para trabajar
         </div>
         <h1 class="hero-title">
           <span class="hero-greeting reveal-up">Hola, soy</span>
           <span class="hero-name">
-            <span class="text-split">Elias Sanchez</span>
+            <span class="text-split hero-name-glow">Elias Sanchez</span>
           </span>
           <span class="hero-role reveal-up" data-delay="0.4">
             <span class="typewriter">Full Stack Developer</span>
           </span>
         </h1>
         <p class="hero-description reveal-up" data-delay="0.6">
-          Ingeniero en Informática con +3 años de experiencia creando 
-          soluciones web <span class="text-accent">eficientes</span>, 
-          <span class="text-accent">accesibles</span> y 
+          Ingeniero en Informática con +3 años de experiencia creando
+          soluciones web <span class="text-accent">eficientes</span>,
+          <span class="text-accent">accesibles</span> y
           <span class="text-accent">centradas en el usuario</span>.
         </p>
-        <div class="hero-cta reveal-up" data-delay="0.8">
-          <a href="#projects" class="btn btn-primary magnetic">
+        <div class="hero-stats reveal-up" data-delay="0.75">
+          <div class="hero-stat">
+            <span class="stat-number" data-target="3">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">años exp.</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="stat-number" data-target="15">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">proyectos</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="stat-number" data-target="10">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">tecnologías</span>
+          </div>
+        </div>
+        <div class="hero-cta reveal-up" data-delay="0.9">
+          <a href="#projects" class="btn btn-primary magnetic btn-glow">
             <span>Ver proyectos</span>
             <i class="ph ph-arrow-right"></i>
           </a>
@@ -207,48 +252,67 @@
                 <i class="ph ph-browser"></i>
               </div>
               <h3>Frontend</h3>
+              <span class="skill-cat-badge">6 skills</span>
             </div>
             <div class="skill-items">
-              <div class="skill-item" style="--brand-color: #e34c26;">
+              <div class="skill-item" style="--brand-color: #e34c26;" data-level="95">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">HTML5</span>
-                  <span class="skill-exp">Avanzado · uso diario</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">HTML5</span>
+                    <span class="skill-level-badge">AVANZADO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #2965f1;">
+              <div class="skill-item" style="--brand-color: #2965f1;" data-level="90">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">CSS3 / Bootstrap</span>
-                  <span class="skill-exp">Avanzado · uso diario</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">CSS3 / Bootstrap</span>
+                    <span class="skill-level-badge">AVANZADO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #f7df1e;">
+              <div class="skill-item" style="--brand-color: #f7df1e;" data-level="85">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">JS / jQuery</span>
-                  <span class="skill-exp">Avanzado · base de cada proyecto</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">JS / jQuery</span>
+                    <span class="skill-level-badge">AVANZADO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #4fc08d;">
+              <div class="skill-item" style="--brand-color: #4fc08d;" data-level="88">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">VueJS</span>
-                  <span class="skill-exp">Avanzado · proyectos en producción</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">VueJS</span>
+                    <span class="skill-level-badge skill-level-gold">PRODUCCIÓN</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #dd0031;">
+              <div class="skill-item" style="--brand-color: #dd0031;" data-level="70">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">AngularJS</span>
-                  <span class="skill-exp">Intermedio · proyectos puntuales</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">AngularJS</span>
+                    <span class="skill-level-badge skill-level-mid">MEDIO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #00d4aa;">
+              <div class="skill-item" style="--brand-color: #00d4aa;" data-level="80">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">UX/UI · Responsive</span>
-                  <span class="skill-exp">Presente en cada entrega</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">UX/UI · Responsive</span>
+                    <span class="skill-level-badge">AVANZADO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
             </div>
@@ -261,41 +325,57 @@
                 <i class="ph ph-hard-drives"></i>
               </div>
               <h3>Backend</h3>
+              <span class="skill-cat-badge">5 skills</span>
             </div>
             <div class="skill-items">
-              <div class="skill-item" style="--brand-color: #339933;">
+              <div class="skill-item" style="--brand-color: #339933;" data-level="85">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">Node.js / Express</span>
-                  <span class="skill-exp">Avanzado · APIs y lógica de negocio</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">Node.js / Express</span>
+                    <span class="skill-level-badge skill-level-gold">PRODUCCIÓN</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #777bb4;">
+              <div class="skill-item" style="--brand-color: #777bb4;" data-level="75">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">PHP</span>
-                  <span class="skill-exp">Intermedio · proyectos para PYMEs</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">PHP</span>
+                    <span class="skill-level-badge skill-level-mid">MEDIO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #00758f;">
+              <div class="skill-item" style="--brand-color: #00758f;" data-level="80">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">MySQL</span>
-                  <span class="skill-exp">Intermedio · modelado y consultas</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">MySQL</span>
+                    <span class="skill-level-badge skill-level-mid">MEDIO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #47a248;">
+              <div class="skill-item" style="--brand-color: #47a248;" data-level="75">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">MongoDB</span>
-                  <span class="skill-exp">Intermedio · apps con Node.js</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">MongoDB</span>
+                    <span class="skill-level-badge skill-level-mid">MEDIO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #ff6c37;">
+              <div class="skill-item" style="--brand-color: #ff6c37;" data-level="82">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">REST APIs</span>
-                  <span class="skill-exp">Diseño e integración</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">REST APIs</span>
+                    <span class="skill-level-badge">AVANZADO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
             </div>
@@ -308,41 +388,57 @@
                 <i class="ph ph-wrench"></i>
               </div>
               <h3>Herramientas</h3>
+              <span class="skill-cat-badge">5 skills</span>
             </div>
             <div class="skill-items">
-              <div class="skill-item" style="--brand-color: #f05032;">
+              <div class="skill-item" style="--brand-color: #f05032;" data-level="85">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">Git / GitHub</span>
-                  <span class="skill-exp">Avanzado · uso diario</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">Git / GitHub</span>
+                    <span class="skill-level-badge">AVANZADO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #2496ed;">
+              <div class="skill-item" style="--brand-color: #2496ed;" data-level="60">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">Docker</span>
-                  <span class="skill-exp">Básico · entornos de desarrollo</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">Docker</span>
+                    <span class="skill-level-badge skill-level-low">BÁSICO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #007acc;">
+              <div class="skill-item" style="--brand-color: #007acc;" data-level="92">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">VS Code</span>
-                  <span class="skill-exp">Editor principal · uso diario</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">VS Code</span>
+                    <span class="skill-level-badge skill-level-gold">EXPERTO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #ff6c37;">
+              <div class="skill-item" style="--brand-color: #ff6c37;" data-level="83">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">Postman</span>
-                  <span class="skill-exp">Testing y documentación de APIs</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">Postman</span>
+                    <span class="skill-level-badge">AVANZADO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
-              <div class="skill-item" style="--brand-color: #ab63ff;">
+              <div class="skill-item" style="--brand-color: #ab63ff;" data-level="80">
                 <span class="skill-dot"></span>
                 <div class="skill-meta">
-                  <span class="skill-name">AI Tools</span>
-                  <span class="skill-exp">Integradas al flujo de trabajo</span>
+                  <div class="skill-meta-top">
+                    <span class="skill-name">AI Tools</span>
+                    <span class="skill-level-badge">AVANZADO</span>
+                  </div>
+                  <div class="skill-bar-track"><div class="skill-bar-fill"></div></div>
                 </div>
               </div>
             </div>
